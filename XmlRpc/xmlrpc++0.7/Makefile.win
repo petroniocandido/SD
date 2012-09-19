@@ -1,0 +1,55 @@
+# Project: xmlrpc
+# Makefile created by Dev-C++ 4.9.9.2
+
+CPP  = g++.exe
+CC   = gcc.exe
+WINDRES = windres.exe
+RES  = 
+OBJ  = src/XmlRpcClient.o src/XmlRpcDispatch.o src/XmlRpcServer.o src/XmlRpcServerConnection.o src/XmlRpcServerMethod.o src/XmlRpcSocket.o src/XmlRpcSource.o src/XmlRpcUtil.o src/XmlRpcValue.o $(RES)
+LINKOBJ  = src/XmlRpcClient.o src/XmlRpcDispatch.o src/XmlRpcServer.o src/XmlRpcServerConnection.o src/XmlRpcServerMethod.o src/XmlRpcSocket.o src/XmlRpcSource.o src/XmlRpcUtil.o src/XmlRpcValue.o $(RES)
+LIBS =  -L"D:/Dev-Cpp/lib"  
+INCS =  -I"D:/Dev-Cpp/include" 
+CXXINCS =  -I"D:/Dev-Cpp/lib/gcc/mingw32/3.4.2/include"  -I"D:/Dev-Cpp/include/c++/3.4.2/backward"  -I"D:/Dev-Cpp/include/c++/3.4.2/mingw32"  -I"D:/Dev-Cpp/include/c++/3.4.2"  -I"D:/Dev-Cpp/include" 
+BIN  = libxmlrpc.a
+CXXFLAGS = $(CXXINCS) -D_WINDOWS  
+CFLAGS = $(INCS) -D_WINDOWS  
+RM = rm -f
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before libxmlrpc.a all-after
+
+
+clean: clean-custom
+	${RM} $(OBJ) $(BIN)
+
+$(BIN): $(LINKOBJ)
+	ar r $(BIN) $(LINKOBJ)
+	ranlib $(BIN)
+
+src/XmlRpcClient.o: src/XmlRpcClient.cpp
+	$(CPP) -c src/XmlRpcClient.cpp -o src/XmlRpcClient.o $(CXXFLAGS)
+
+src/XmlRpcDispatch.o: src/XmlRpcDispatch.cpp
+	$(CPP) -c src/XmlRpcDispatch.cpp -o src/XmlRpcDispatch.o $(CXXFLAGS)
+
+src/XmlRpcServer.o: src/XmlRpcServer.cpp
+	$(CPP) -c src/XmlRpcServer.cpp -o src/XmlRpcServer.o $(CXXFLAGS)
+
+src/XmlRpcServerConnection.o: src/XmlRpcServerConnection.cpp
+	$(CPP) -c src/XmlRpcServerConnection.cpp -o src/XmlRpcServerConnection.o $(CXXFLAGS)
+
+src/XmlRpcServerMethod.o: src/XmlRpcServerMethod.cpp
+	$(CPP) -c src/XmlRpcServerMethod.cpp -o src/XmlRpcServerMethod.o $(CXXFLAGS)
+
+src/XmlRpcSocket.o: src/XmlRpcSocket.cpp
+	$(CPP) -c src/XmlRpcSocket.cpp -o src/XmlRpcSocket.o $(CXXFLAGS)
+
+src/XmlRpcSource.o: src/XmlRpcSource.cpp
+	$(CPP) -c src/XmlRpcSource.cpp -o src/XmlRpcSource.o $(CXXFLAGS)
+
+src/XmlRpcUtil.o: src/XmlRpcUtil.cpp
+	$(CPP) -c src/XmlRpcUtil.cpp -o src/XmlRpcUtil.o $(CXXFLAGS)
+
+src/XmlRpcValue.o: src/XmlRpcValue.cpp
+	$(CPP) -c src/XmlRpcValue.cpp -o src/XmlRpcValue.o $(CXXFLAGS)
