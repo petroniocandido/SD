@@ -5,33 +5,102 @@
 
 
 using namespace std; 
-//using namespace XmlRpc; 
+using namespace XmlRpc; 
 
-/*XmlRpcServer s; 
-
-
+XmlRpcServer s; 
 
 
 
-class TestMethod : public XmlRpcServerMethod 
+/**************************************************************
+ *                   REGISTRAR
+ **************************************************************/
+
+class RegistrarMethod : public XmlRpcServerMethod 
 { 
 public: 
-    TestMethod(XmlRpcServer* s1) : XmlRpcServerMethod("test", s1) {} 
+    RegistrarMethod(XmlRpcServer* s1) : XmlRpcServerMethod("registrar", s1) {} 
 
     void execute(XmlRpcValue& params, XmlRpcValue& result) 
     { 
-        result = "It Works! Yahooooooooooo!"; 
+        result = "OK!"; 
         
-        cout << "Método invocado!" << endl;
+        cout << "Registrando: " << params << endl;
     } 
 
-} test(&s); 
-*/
+} registrar(&s); 
+
+
+/**************************************************************
+ *                   LISTAR
+ **************************************************************/
+
+class ListarMethod : public XmlRpcServerMethod 
+{ 
+public: 
+    ListarMethod(XmlRpcServer* s1) : XmlRpcServerMethod("listar", s1) {} 
+
+    void execute(XmlRpcValue& params, XmlRpcValue& result) 
+    { 
+        result = "OK!"; 
+        
+        cout << "Listando: " <<  endl;
+    } 
+
+} listar(&s); 
+
+/**************************************************************
+ *                   ENVIAR
+ **************************************************************/
+
+class EnviarMethod : public XmlRpcServerMethod 
+{ 
+public: 
+    EnviarMethod(XmlRpcServer* s1) : XmlRpcServerMethod("enviar", s1) {} 
+
+    void execute(XmlRpcValue& params, XmlRpcValue& result) 
+    { 
+                  
+        result = "OK!"; 
+        
+        cout << "Enviando: " << params[0] << " -> " << params[1] <<  endl;
+    } 
+
+} enviar(&s);
+
+/**************************************************************
+ *                   RECEBER
+ **************************************************************/ 
+
+class ReceberMethod : public XmlRpcServerMethod 
+{ 
+public: 
+    ReceberMethod(XmlRpcServer* s1) : XmlRpcServerMethod("receber", s1) {} 
+
+    void execute(XmlRpcValue& params, XmlRpcValue& result) 
+    { 
+        result = "OK!"; 
+        
+        cout << "Receber: " <<  endl;
+    } 
+
+} receber(&s); 
+
 
 int main(int argc, char* argv[]) 
-{ 
+{
     
-    ChatServer server;
+    int port = 8000; 
+
+    //XmlRpc::setVerbosity(5); 
+
+    s.bindAndListen(port); 
+
+    s.enableIntrospection(true); 
+
+    s.work(-1.0); 
+ 
+    
+    /*ChatServer server;
     
     char *usr1 = "teste1";
     char *usr2 = "teste2";
@@ -49,21 +118,10 @@ int main(int argc, char* argv[])
     mensagem m1 = server.Receber(usr2);    
     
     cout << m1.corpo << endl;
-
-int i;
- cin >> i;
+*/
 
     return 0; 
 
-/*int port = 8000; 
 
-    //XmlRpc::setVerbosity(5); 
-
-    s.bindAndListen(port); 
-
-    s.enableIntrospection(true); 
-
-    s.work(-1.0); 
-*/
 
 } 
