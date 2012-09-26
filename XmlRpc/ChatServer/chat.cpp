@@ -11,6 +11,10 @@ Usuario::Usuario(char* n){
      this->nome = n;
 }
 
+Usuario::Usuario(string n){
+     this->nome = (char *)n.c_str();
+}
+
 void Usuario::adicionarMensagem(char* usr, char* corpo){
      mensagem msg( usr, corpo );
      mensagens.push_back(msg);
@@ -35,6 +39,12 @@ mensagem Usuario::retornaMensagem() {
 void ChatServer::Registrar(char* usuario){
      Usuario usr(usuario);
      usuarios[usuario] = usr;
+}
+
+void ChatServer::Registrar(string usuario){
+     Usuario usr(usuario);
+     char* key = (char*)usuario.c_str();
+     usuarios[key] = usr;
 }
 
 char** ChatServer::Listar(){

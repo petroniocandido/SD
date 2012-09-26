@@ -21,6 +21,7 @@ class Usuario {
       public:
              Usuario();
              Usuario(char* n);
+             Usuario(string n);
              void adicionarMensagem(char* usr, char* corpo);
              void adicionarMensagem(mensagem msg);
              mensagem retornaMensagem();
@@ -32,6 +33,7 @@ class ChatServer {
               map<char*, Usuario> usuarios;
       public:
              void Registrar(char* usuario);
+             void Registrar(string usuario);
              char** Listar();
              void Enviar(char* usuario, char* destinatario, char* mensagem);
              void Enviar(char* destinatario, mensagem msg);

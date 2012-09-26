@@ -8,6 +8,7 @@ using namespace std;
 using namespace XmlRpc; 
 
 XmlRpcServer s; 
+ChatServer chat;
 
 
 
@@ -23,6 +24,8 @@ public:
     void execute(XmlRpcValue& params, XmlRpcValue& result) 
     { 
         result = "OK!"; 
+        
+        chat.Registrar((string)params);
         
         cout << "Registrando: " << params << endl;
     } 
