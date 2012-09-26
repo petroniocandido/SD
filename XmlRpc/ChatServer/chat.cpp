@@ -47,8 +47,14 @@ void ChatServer::Registrar(string usuario){
      usuarios[key] = usr;
 }
 
-char** ChatServer::Listar(){
-        return NULL;
+vector<char*> ChatServer::Listar(){
+        vector<char *> usrs;
+        map<char*, Usuario>::iterator it;
+        for(it = usuarios.begin(); it != usuarios.end(); it++)
+               usrs.push_back((*it).first);
+        
+        return usrs;
+        
 }
 
 void ChatServer::Enviar(char* usuario, char* destinatario, char* mensagem){

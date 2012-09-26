@@ -1,4 +1,5 @@
 #include <list>
+#include <vector>
 #include <map>
 
 using namespace std;
@@ -34,9 +35,11 @@ class ChatServer {
       public:
              void Registrar(char* usuario);
              void Registrar(string usuario);
-             char** Listar();
+             vector<char*> Listar();
              void Enviar(char* usuario, char* destinatario, char* mensagem);
              void Enviar(char* destinatario, mensagem msg);
              mensagem Receber(char* usuario);
              void Sair(char* usuario); 
 };
+
+

@@ -1,6 +1,8 @@
 #include "XmlRpc.h" 
 #include <stdlib.h> 
 #include <iostream> 
+#include <sstream>
+#include <string>
 #include "chat.h"
 
 
@@ -9,8 +11,6 @@ using namespace XmlRpc;
 
 XmlRpcServer s; 
 ChatServer chat;
-
-
 
 /**************************************************************
  *                   REGISTRAR
@@ -23,11 +23,36 @@ public:
 
     void execute(XmlRpcValue& params, XmlRpcValue& result) 
     { 
-        result = "OK!"; 
+        result = "OK!";
         
-        chat.Registrar((string)params);
+/*        stringbuf sb;
+        ostream os(&sb);
         
-        cout << "Registrando: " << params << endl;
+        params.write(os);
+        
+        os.flush();
+        
+        string login = sb.str();
+        
+        
+        /*stringbuf sb; 
+        
+        
+        //cout << params << endl;
+        
+       std::stringstream ss;
+        
+       ss << params;
+       // os.flush();
+        
+        char* login = (char*)ss.str().c_str();
+        */
+        
+        string login = params[0];
+        
+        chat.Registrar(login);
+       
+        cout << "Registrando: " << login << endl;
     } 
 
 } registrar(&s); 
@@ -44,9 +69,11 @@ public:
 
     void execute(XmlRpcValue& params, XmlRpcValue& result) 
     { 
-        result = "OK!"; 
-        
-        cout << "Listando: " <<  endl;
+        vector<char*> list = chat.Listar();
+        for(int i = 0; i < list.size(); i++)
+               result[i] = list[i];
+         
+        cout << "Listando: " << list.size() <<  endl;
     } 
 
 } listar(&s); 
@@ -91,10 +118,15 @@ public:
 
 int main(int argc, char* argv[]) 
 {
+    cout << "=========================================================" << endl;
+    cout << "===               CHAT SERVER XMLRPC                  ===" << endl;
+    cout << "===          Prof. Me. Petrônio Cândido               ===" << endl;
+    cout << "===      Sistemas Distribuídos, FACIT 2012            ===" << endl;
+    cout << "=========================================================" << endl;
     
     int port = 8000; 
 
-    //XmlRpc::setVerbosity(5); 
+    XmlRpc::setVerbosity(5); 
 
     s.bindAndListen(port); 
 
