@@ -32,21 +32,28 @@ int main(int argc, char* argv[])
     
     char input[100];
     
-    while(input != "q"){
+    while(strcmp(input,"q")!=0){
    
                 // Receber mensagens 
                 
-    
-                cout << "l) listar usuários; e) enviar mensagem; q) sair" << endl;
+                    
+                cout << "m)mostrar mensagens l) listar usuários; e) enviar mensagem; q) sair" << endl;
                 
                 gets(input);
                 
-                if(input == "l"){
+                if(strcmp(input,"l")==0){
                          status = chat.Listar();
                 }
-                else if(input == "e"){
+                else if(strcmp(input,"e")==0){
+                     char dest[16], msg[200];
+                     cout << "Para quem:" << endl;
+                     gets(dest);
+                     cout << "Mensagem [finaliza com enter]:" << endl;
+                     gets(msg);
+                     status = chat.Enviar(dest, msg);
+                     cout << "Mensagem enviada!" << endl;
                 }
-                else if(input == "q"){
+                else if(strcmp(input,"q")==0){
                 }
                 else {
                      cout << "Opção inválida:" << input << "." << endl;
