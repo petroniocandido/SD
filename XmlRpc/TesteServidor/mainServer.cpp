@@ -14,7 +14,7 @@ public:
 
     void execute(XmlRpcValue& params, XmlRpcValue& result) 
     { 
-        result = "It Works! Yahooooooooooo!"; 
+        result = "Hello World RPC"; 
         
         cout << "Método invocado!" << endl;
     } 
@@ -26,9 +26,9 @@ int main(int argc, char* argv[])
 { 
     int port = 8000; 
 
-    //XmlRpc::setVerbosity(5); 
-
     s.bindAndListen(port); 
+
+    cout << "Escutando por clientes" << endl;
 
     s.enableIntrospection(true); 
 
