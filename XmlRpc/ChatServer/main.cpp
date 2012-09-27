@@ -24,30 +24,7 @@ public:
     void execute(XmlRpcValue& params, XmlRpcValue& result) 
     { 
         result = "OK!";
-        
-/*        stringbuf sb;
-        ostream os(&sb);
-        
-        params.write(os);
-        
-        os.flush();
-        
-        string login = sb.str();
-        
-        
-        /*stringbuf sb; 
-        
-        
-        //cout << params << endl;
-        
-       std::stringstream ss;
-        
-       ss << params;
-       // os.flush();
-        
-        char* login = (char*)ss.str().c_str();
-        */
-        
+                
         string login = params[0];
         
         chat.Registrar(login);
@@ -92,6 +69,12 @@ public:
                   
         result = "OK!"; 
         
+        string usr = params[0];
+        string dest = params[1];
+        string msg = params[2];
+        
+        chat.Enviar((char*)usr.c_str(),(char*)dest.c_str(),(char*)msg.c_str());
+        
         cout << "Enviando: " << params[0] << " -> " << params[1] <<  endl;
     } 
 
@@ -109,6 +92,14 @@ public:
     void execute(XmlRpcValue& params, XmlRpcValue& result) 
     { 
         result = "OK!"; 
+        
+        string login = params[0];
+        
+        mensagem msg = chat.Receber((char*)login.c_str());
+        
+        result[0] = (string)msg.remetente;
+        result[1] = (string)msg.corpo;
+        
         
         cout << "Receber: " <<  endl;
     } 

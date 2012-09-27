@@ -13,14 +13,29 @@ public:
     TestMethod(XmlRpcServer* s1) : XmlRpcServerMethod("test", s1) {} 
 
     void execute(XmlRpcValue& params, XmlRpcValue& result) 
-    { 
-        result = "Hello World RPC"; 
+    {          
+        result = "Petrônio Cândido"; 
         
         cout << "Método invocado!" << endl;
     } 
 
 } test(&s); 
 
+class SomaMethod : public XmlRpcServerMethod 
+{ 
+public: 
+    SomaMethod(XmlRpcServer* s1) : XmlRpcServerMethod("somar", s1) {} 
+
+    void execute(XmlRpcValue& params, XmlRpcValue& result) 
+    {          
+        int a = params[0];
+        int b = params[1];
+        result = a + b; 
+        
+        cout << "Método Somar invocado!" << endl;
+    } 
+
+} soma(&s);
 
 int main(int argc, char* argv[]) 
 { 

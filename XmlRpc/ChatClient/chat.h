@@ -36,13 +36,27 @@ class Chat {
             
             bool Enviar(char * dest, char * msg) {
                 XmlRpcValue params;
-                params[0] = login;
-                params[1] = dest;
-                params[2] = msg;
+                params[0] = (string)login;
+                params[1] = (string)dest;
+                params[2] = (string)msg;
                 
                  XmlRpcValue result;
                  if (rpc->execute("enviar", params, result)) 
                     return true;
+                else 
+                    return false; 
+            }
+            
+            bool Receber() {
+                XmlRpcValue log;
+                 log[0] = (string)login;
+                 XmlRpcValue result;
+                 if (rpc->execute("receber", log, result)) {
+                    int size = result.size();
+                    for(int i = 0; i < size; i++)
+                            cout << result[i] << endl;
+                    return true;
+                 }
                 else 
                     return false; 
             }
