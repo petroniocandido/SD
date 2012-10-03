@@ -7,15 +7,12 @@ Usuario::Usuario(){
      this->nome = "";
 }
 
-Usuario::Usuario(char* n){
+Usuario::Usuario(string n){
      this->nome = n;
 }
 
-Usuario::Usuario(string n){
-     this->nome = (char *)n.c_str();
-}
 
-void Usuario::adicionarMensagem(char* usr, char* corpo){
+void Usuario::adicionarMensagem(string usr, string corpo){
      mensagem msg( usr, corpo );
      mensagens.push_back(msg);
      
@@ -38,45 +35,51 @@ mensagem Usuario::retornaMensagem() {
 
 void ChatServer::Registrar(char* usuario){
      Usuario usr(usuario);
-     usuarios[usuario] = usr;
+     usuarios[(string)usuario] = usr;
 }
 
 void ChatServer::Registrar(string usuario){
      Usuario usr(usuario);
-     char* key = (char*)usuario.c_str();
-     usuarios[key] = usr;
+//     char* key = (char*)usuario.c_str();
+     cout << "Usuario registrado: " << usuario << "." << endl;  
+     usuarios[usuario] = usr;
 }
 
-vector<char*> ChatServer::Listar(){
-        vector<char *> usrs;
-        map<char*, Usuario>::iterator it;
-        for(it = usuarios.begin(); it != usuarios.end(); it++)
-               usrs.push_back((*it).first);
+vector<string> ChatServer::Listar(){
+         //Usuario scnd = usuarios["teste"];
+        vector<string> usrs;
+        map<string, Usuario>::iterator it;
+        for(it = this->usuarios.begin(); it != this->usuarios.end(); ++it){
+               string fst = it->first;
+               Usuario scnd = it->second;
+               usrs.push_back(fst);
+               cout << "Listar: " << fst << endl;
+        }
         
         return usrs;
         
 }
 
-void ChatServer::Enviar(char* usuario, char* destinatario, char* mensagem){
+void ChatServer::Enviar(string usuario, string destinatario, string mensagem){
         Usuario usr = usuarios[destinatario];
         usr.adicionarMensagem(usuario, mensagem);
         usuarios[destinatario] = usr;
 }
 
-void ChatServer::Enviar(char* destinatario, mensagem msg){
-        Usuario usr = usuarios[destinatario];
+void ChatServer::Enviar(string destinatario, mensagem msg){
+        Usuario usr = usuarios[(string)destinatario];
         usr.adicionarMensagem(msg);
         usuarios[destinatario] = usr;
 }
 
-mensagem ChatServer::Receber(char* usuario){
+mensagem ChatServer::Receber(string usuario){
        Usuario usr = usuarios[usuario];
        mensagem msg = usr.retornaMensagem();
        usuarios[usuario] = usr;
        return msg;
 }
 
-void ChatServer::Sair(char* usuario){
+void ChatServer::Sair(string usuario){
      usuarios.erase(usuario);
         
 }

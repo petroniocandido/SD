@@ -60,5 +60,16 @@ class Chat {
                 else 
                     return false; 
             }
+            
+            bool Sair() {
+                XmlRpcValue log;
+                 log[0] = (string)login;
+                 XmlRpcValue result;
+                 if (rpc->execute("sair", log, result)) {
+                    return true;
+                 }
+                else 
+                    return false; 
+            }
 };
              

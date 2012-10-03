@@ -1,15 +1,16 @@
 #include <list>
 #include <vector>
 #include <map>
+#include <string>
 
 using namespace std;
 
 class mensagem {
       public:      
-       char* remetente;
-       char* corpo;
+       string remetente;
+       string corpo;
               
-       mensagem(char* r, char* m) {
+       mensagem(string r, string m) {
            remetente = r;
            corpo = m;
        }
@@ -18,12 +19,11 @@ class mensagem {
 class Usuario {
       private:
               list<mensagem> mensagens;
-              char* nome;
+              string nome;
       public:
              Usuario();
-             Usuario(char* n);
              Usuario(string n);
-             void adicionarMensagem(char* usr, char* corpo);
+             void adicionarMensagem(string usr, string corpo);
              void adicionarMensagem(mensagem msg);
              mensagem retornaMensagem();
               
@@ -31,15 +31,15 @@ class Usuario {
 
 class ChatServer {
       private:
-              map<char*, Usuario> usuarios;
+              map<string, Usuario> usuarios;
       public:
              void Registrar(char* usuario);
              void Registrar(string usuario);
-             vector<char*> Listar();
-             void Enviar(char* usuario, char* destinatario, char* mensagem);
-             void Enviar(char* destinatario, mensagem msg);
-             mensagem Receber(char* usuario);
-             void Sair(char* usuario); 
+             vector<string> Listar();
+             void Enviar(string usuario, string destinatario, string mensagem);
+             void Enviar(string destinatario, mensagem msg);
+             mensagem Receber(string usuario);
+             void Sair(string usuario); 
 };
 
 

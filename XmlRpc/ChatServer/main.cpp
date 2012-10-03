@@ -25,11 +25,11 @@ public:
     { 
         result = "OK!";
                 
-        string login = params[0];
+        string login = (string)params[0];
         
         chat.Registrar(login);
        
-        cout << "Registrando: " << login << endl;
+        cout << "Registrando: " << login << "." << endl;
     } 
 
 } registrar(&s); 
@@ -46,11 +46,12 @@ public:
 
     void execute(XmlRpcValue& params, XmlRpcValue& result) 
     { 
-        vector<char*> list = chat.Listar();
+         string tmp = params[0];
+        vector<string> list = chat.Listar();
         for(int i = 0; i < list.size(); i++)
-               result[i] = list[i];
+               result[i] = (string)list[i];
          
-        cout << "Listando: " << list.size() <<  endl;
+        cout << "Listando: " << result.size() <<  endl;
     } 
 
 } listar(&s); 
@@ -105,6 +106,29 @@ public:
     } 
 
 } receber(&s); 
+
+
+/**************************************************************
+ *                   SAIR
+ **************************************************************/ 
+
+class SairMethod : public XmlRpcServerMethod 
+{ 
+public: 
+    SairMethod(XmlRpcServer* s1) : XmlRpcServerMethod("sair", s1) {} 
+
+    void execute(XmlRpcValue& params, XmlRpcValue& result) 
+    { 
+        result = "OK!"; 
+        
+        string login = params[0];
+        
+        chat.Sair(login);        
+        
+        cout << "Desregistrando: " << login <<  endl;
+    } 
+
+} sair(&s); 
 
 
 int main(int argc, char* argv[]) 

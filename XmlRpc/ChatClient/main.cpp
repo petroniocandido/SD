@@ -55,16 +55,19 @@ void main_loop() {
     
     char input[100];
     
-    while(strcmp(input,"q")!=0){
+    bool menu = true;
+    
+    while(menu){
    
                 // Receber mensagens 
                 
                     
-                cout << "m)mostrar mensagens l) listar usuários; e) enviar mensagem; q) sair" << endl;
+                cout << "\nm)mostrar mensagens l) listar usuários; e) enviar mensagem; q) sair" << endl;
                 
                 gets(input);
                 
                 if(strcmp(input,"l")==0){
+                         cout << "\nUsuários registrados: " << endl;
                          status = chat.Listar();
                 }
                 else if(strcmp(input,"e")==0){
@@ -80,6 +83,8 @@ void main_loop() {
                      status = chat.Receber();
                 }
                 else if(strcmp(input,"q")==0){
+                     status = chat.Sair();
+                     menu = false;
                 }
                 else {
                      cout << "Opção inválida:" << input << "." << endl;
@@ -89,7 +94,9 @@ void main_loop() {
 
 int main(int argc, char* argv[]) 
 { 
-    teste();
+    //teste();
+    
+    main_loop();
 
     return 0; 
 } 
