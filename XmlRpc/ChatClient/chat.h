@@ -1,13 +1,15 @@
-#include "XmlRpc.h" 
+#include "XmlRpc.h"
+#include <string>
+ 
 using namespace std; 
 using namespace XmlRpc; 
 
 class Chat {
       private:
              XmlRpcClient *rpc;
-             char * login;
+             string login;
       public:
-             Chat(XmlRpcClient *c, char * l) {
+             Chat(XmlRpcClient *c, string l) {
                 this->rpc = c;
                 this->login = l;
              }
@@ -34,10 +36,10 @@ class Chat {
                     return false;
             }
             
-            bool Enviar(char * dest, char * msg) {
+            bool Enviar(string dest, string msg) {
                 XmlRpcValue params;
                 params[0] = (string)login;
-                params[1] = (string)dest;
+                params[1] = (string)dest; 
                 params[2] = (string)msg;
                 
                  XmlRpcValue result;
@@ -48,9 +50,9 @@ class Chat {
             }
             
             bool Receber() {
-                XmlRpcValue log;
+                XmlRpcValue result;
+                 XmlRpcValue log;
                  log[0] = (string)login;
-                 XmlRpcValue result;
                  if (rpc->execute("receber", log, result)) {
                     int size = result.size();
                     for(int i = 0; i < size; i++)

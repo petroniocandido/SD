@@ -33,7 +33,6 @@ class ChatServer {
       private:
               map<string, Usuario> usuarios;
       public:
-             void Registrar(char* usuario);
              void Registrar(string usuario);
              vector<string> Listar();
              void Enviar(string usuario, string destinatario, string mensagem);
@@ -41,5 +40,3 @@ class ChatServer {
              mensagem Receber(string usuario);
              void Sair(string usuario); 
 };
-
-

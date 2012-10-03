@@ -28,25 +28,20 @@ void Usuario::adicionarMensagem(mensagem msg){
 
 mensagem Usuario::retornaMensagem() {
          mensagem msg = mensagens.front();
+         mensagem ret(msg.remetente, msg.corpo);
          mensagens.pop_front();
         
-         return msg;
+         return ret;
 }
 
-void ChatServer::Registrar(char* usuario){
-     Usuario usr(usuario);
-     usuarios[(string)usuario] = usr;
-}
 
 void ChatServer::Registrar(string usuario){
      Usuario usr(usuario);
-//     char* key = (char*)usuario.c_str();
      cout << "Usuario registrado: " << usuario << "." << endl;  
      usuarios[usuario] = usr;
 }
 
 vector<string> ChatServer::Listar(){
-         //Usuario scnd = usuarios["teste"];
         vector<string> usrs;
         map<string, Usuario>::iterator it;
         for(it = this->usuarios.begin(); it != this->usuarios.end(); ++it){

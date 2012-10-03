@@ -1,5 +1,6 @@
 #include <iostream> 
 #include <stdio.h>
+#include <string.h>
 #include "chat.h"
 using namespace std;
 
@@ -16,7 +17,7 @@ void teste() {
         
     cout << "Conectando com o login: " << log << "." <<endl;
 
-    Chat chat(&c, log);
+    Chat chat(&c, (string)log);
     
     bool status = false;
     
@@ -25,6 +26,12 @@ void teste() {
     status = chat.Registrar();
     
     status = chat.Listar();
+    
+    status = chat.Enviar("teste","msg teste");
+    
+   status = chat.Receber();
+   
+   status = chat.Sair();
 }
 
 void main_loop() {

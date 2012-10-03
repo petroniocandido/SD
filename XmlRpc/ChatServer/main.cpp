@@ -74,7 +74,9 @@ public:
         string dest = params[1];
         string msg = params[2];
         
-        chat.Enviar((char*)usr.c_str(),(char*)dest.c_str(),(char*)msg.c_str());
+        chat.Enviar(usr,dest,msg);
+        
+        result = "OK";
         
         cout << "Enviando: " << params[0] << " -> " << params[1] <<  endl;
     } 
@@ -92,15 +94,21 @@ public:
 
     void execute(XmlRpcValue& params, XmlRpcValue& result) 
     { 
-        result = "OK!"; 
+        result = "OK!";
+                
+        string login = (string)params[0];
         
-        string login = params[0];
+        mensagem msg = chat.Receber(login);
         
-        mensagem msg = chat.Receber((char*)login.c_str());
+        string rem = msg.remetente;
+        string cor = msg.corpo;
         
-        result[0] = (string)msg.remetente;
-        result[1] = (string)msg.corpo;
+        XmlRpcValue ret;
         
+        ret[0] = rem;
+        ret[1] = cor;
+        
+        result = ret;
         
         cout << "Receber: " <<  endl;
     } 
@@ -138,10 +146,11 @@ int main(int argc, char* argv[])
     cout << "===          Prof. Me. Petrônio Cândido               ===" << endl;
     cout << "===      Sistemas Distribuídos, FACIT 2012            ===" << endl;
     cout << "=========================================================" << endl;
-    
+ 
+  
     int port = 8000; 
 
-    XmlRpc::setVerbosity(5); 
+    //XmlRpc::setVerbosity(5); 
 
     s.bindAndListen(port); 
 
@@ -149,8 +158,9 @@ int main(int argc, char* argv[])
 
     s.work(-1.0); 
  
+    /*
     
-    /*ChatServer server;
+    ChatServer server;
     
     char *usr1 = "teste1";
     char *usr2 = "teste2";
@@ -158,19 +168,21 @@ int main(int argc, char* argv[])
     server.Registrar(usr1);
     
     server.Registrar(usr2);
+   
+    server.Enviar(usr2, usr1, "Teste1");
+    server.Enviar(usr2, usr1, "Teste2");
+    server.Enviar(usr2, usr1, "Teste3");
     
-    mensagem msg(usr1, (char *)"Teste");
-    
-    server.Enviar(usr2, mensagem(usr1, (char *)"Teste1"));
-    server.Enviar(usr2, mensagem(usr1, (char *)"Teste2"));
-    server.Enviar(usr2, mensagem(usr1, (char *)"Teste3"));
-    
-    mensagem m1 = server.Receber(usr2);    
+    mensagem m1 = server.Receber(usr1);    
     
     cout << m1.corpo << endl;
-*/
+    
+    string s;
 
-    return 0; 
+    cin >> s;
+    */
+
+    //return 0; 
 
 
 
